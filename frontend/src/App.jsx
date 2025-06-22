@@ -28,10 +28,12 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Navbar user={user} setUser={setUser} /> 
       <Routes>
-        <Route path="/" element={<LoginPage onLogin={setUser} />} />
         <Route path="/dashboard" element={<Dashboard user={user} />} />
         <Route path="/admin" element={<AdminPanel user={user} />} />
+        <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
