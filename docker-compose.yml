@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - '5001:5001'
+    environment:
+      - NODE_ENV=development
+      - AZURE_STORAGE_CONNECTION_STRING=${AZURE_STORAGE_CONNECTION_STRING}
+      - AZURE_KEY_VAULT_URL=${AZURE_KEY_VAULT_URL}
+      - JWT_SECRET=your_secret_here
+    volumes:
+      - ./logs:/app/logs
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '3000:80'
+    depends_on:
+      - backend
+
+  # Optional logger service
+  # logger:
+  #   build: ./logger
+  #   volumes:
+  #     - ./logs:/logs
