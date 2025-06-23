@@ -1,11 +1,11 @@
 appName: secure-finance
 
 image:
-  repository: bhanujaregistry.azurecr.io/secure-backend
+  repository: myregistry01secure.azurecr.io/secure-backend
   tag: v1
 
 frontend:
-  repository: bhanujaregistry.azurecr.io/secure-frontend
+  repository: myregistry01secure.azurecr.io/secure-frontend
   tag: v1
 
 service:

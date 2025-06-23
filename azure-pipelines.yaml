@@ -1,0 +1,78 @@
+trigger:
+  branches:
+    include:
+      - main
+
+variables:
+  acrName: myregistry01secure.azurecr.io
+  backendImage: $(myregistry01secure)/secure-backend
+  frontendImage: $(myregistry01secure)/secure-frontend
+
+stages:
+  - stage: Build
+    jobs:
+      - job: BuildBackend
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: Docker@2
+            displayName: Build & Push Backend
+            inputs:
+              containerRegistry: "acr-devops-connection"
+              repository: secure-backend
+              command: buildAndPush
+              Dockerfile: backend/Dockerfile
+              tags: |
+                $(Build.BuildId)
+          # ✅ Step 1: Fetch secrets from Key Vault
+          - task: AzureKeyVault@2
+            inputs:
+              azureSubscription: "azure-kv-connection"
+              KeyVaultName: "my-key-vault"
+              SecretsFilter: "*"
+              RunAsPreJob: true
+
+          # ✅ Step 2: Use secrets in your scripts
+          - script: |
+              echo "JWT Secret is: $(JWT_SECRET)"
+              node backend/index.js
+            displayName: "Run Backend with Secrets"
+            env:
+            JWT_SECRET: $(JWT_SECRET)
+            STORAGE_CONNECTION_STRING: $(STORAGE_CONNECTION_STRING)
+
+      - job: BuildFrontend
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: Docker@2
+            displayName: Build & Push Frontend
+            inputs:
+              containerRegistry: "acr-devops-connection"
+              repository: secure-frontend
+              command: buildAndPush
+              Dockerfile: frontend/Dockerfile
+              tags: |
+                $(Build.BuildId)
+
+  - stage: Deploy
+    dependsOn: Build
+    jobs:
+      - job: DeployToAKS
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: Kubernetes@1
+            displayName: Deploy via Helm
+            inputs:
+              connectionType: "Azure Resource Manager"
+              azureSubscription: "azure-arm-connection"
+              azureResourceGroup: "aks-lab-rg"
+              kubernetesCluster: "bhanuja-aks"
+              command: "helmUpgrade"
+              chartType: "FilePath"
+              chartPath: charts
+              releaseName: secure-docs
+              overrideValues: |
+                image.repository=$(backendImage)
+                image.tag=$(Build.BuildId)
