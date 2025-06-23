@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const sequelize = require('./db');
 const User = require('./models/User');
+const { register } = require('./metrics');
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,10 @@ const adminRoutes = require('./routes/admin');
 app.use('/api/auth', authRoutes);
 app.use('/api/files', fileRoutes);
 app.use('/api/admin', adminRoutes);
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
+});
 
 try {
     sequelize.sync().then(() => {
@@ -27,5 +32,11 @@ try {
 } catch(error){
     console.log('Error encountered while connecting to database', error);
 }
+
+
+
+
+
+
 
 

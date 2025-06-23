@@ -1,0 +1,22 @@
+appName: secure-finance
+
+image:
+  repository: bhanujaregistry.azurecr.io/secure-backend
+  tag: v1
+
+frontend:
+  repository: bhanujaregistry.azurecr.io/secure-frontend
+  tag: v1
+
+service:
+  backendPort: 5000
+  frontendPort: 80
+  type: LoadBalancer
+
+ingress:
+  host: secureapp.bhanuja.cloud
+
+keyvault:
+  name: your-keyvault-name
+  clientId: <clientId>
+  tenantId: <tenantId>

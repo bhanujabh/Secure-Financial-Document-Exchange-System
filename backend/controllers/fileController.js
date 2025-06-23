@@ -4,6 +4,7 @@ const getUserFromToken = require('../utils/getUserFromToken');
 const { uploadFileToBlob, downloadFileFromBlob } = require('../utils/blobUploader');
 const { encryptFile, decryptFile } = require('../utils/encryption');
 const { saveEncryptionKey, getEncryptionKey } = require('../utils/keyVault');
+const { uploadCounter, downloadCounter } = require('../metrics');
 
 // Upload file
 exports.uploadFile = async (req, res) => {
@@ -13,6 +14,8 @@ exports.uploadFile = async (req, res) => {
     const file = req.file;
 
     if (!file) return res.status(400).json({ message: 'No file uploaded' });
+
+    uploadCounter.inc({ user: user.username });
 
     const { encryptedBuffer, key, iv, tag } = encryptFile(file.buffer);
 
@@ -62,6 +65,8 @@ exports.downloadFile = async (req, res) => {
       keyData.tag
     );
 
+    downloadCounter.inc({ user: user.username, filename: doc.filename });
+    
     res.setHeader('Content-Disposition', `attachment; filename="${doc.filename}"`);
     res.setHeader('Content-Type', 'application/octet-stream');
     res.send(decryptedBuffer);

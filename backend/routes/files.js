@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const multer = require('multer');
 const auth = require('../middleware/auth');
-const { uploadFile, downloadFile, deleteFile, getFile, getAuditLogs } = require('../controllers/fileController');
+const { uploadFile, downloadFile, deleteFile, getFile } = require('../controllers/fileController');
 const logAction = require('../middleware/logger');
 const { getAuditLogs } = require('../controllers/logController');
 const upload = multer({ storage: multer.memoryStorage() });

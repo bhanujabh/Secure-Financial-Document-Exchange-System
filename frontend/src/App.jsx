@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 import AdminPanel from './pages/AdminPanel';
+import Navbar from './components/Navbar';
+import LoginForm from './components/LoginForm';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,11 +34,11 @@ function App() {
       <Routes>
         <Route path="/dashboard" element={<Dashboard user={user} />} />
         <Route path="/admin" element={<AdminPanel user={user} />} />
-        <Route path="/login" element={<Login setUser={setUser} />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<LoginPage setUser={setUser} />} />
+        <Route path="/register" element={<LoginForm />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
-export default App
+export default App;

@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { failedLoginCounter } = require('../metrics');
 
 exports.register = async (req, res)=>{
     const { username, email, password } = req.body;
@@ -17,8 +18,9 @@ exports.register = async (req, res)=>{
 exports.login = async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ where: {username} });
-    if(!user || !(await bcrypt.compare(password, user.password))){
-        return res.status(401).json({message: 'Invalid credentials' });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+        failedLoginCounter.inc({ username }); 
+        return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     const token = jwt.sign({ id: user.id, username: user.username, role: user.role }, process.env.JWT_SECRET, {expiresIn: '1d' });
