@@ -9,7 +9,7 @@ frontend:
   tag: v1
 
 service:
-  backendPort: 5000
+  backendPort: 5001
   frontendPort: 80
   type: LoadBalancer
 
@@ -17,6 +17,6 @@ ingress:
   host: secureapp.bhanuja.cloud
 
 keyvault:
-  name: your-keyvault-name
-  clientId: <clientId>
-  tenantId: <tenantId>
+  name: key-vault-01-secure
+  clientId: 37669721-0f3a-4857-ab78-b04ba98adb5f
+  tenantId: 29d6b2c1-5a07-49dc-ad3b-a84fe545e6d9
