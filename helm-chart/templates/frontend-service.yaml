@@ -4,9 +4,9 @@ metadata:
   name: frontend-service
 spec:
   selector:
-    app: secure-frontend
+    app: {{ .Values.appName }}-frontend
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: LoadBalancer
+      port: {{ .Values.service.frontendPort }}
+      targetPort: {{ .Values.service.frontendPort }}
+  type: ClusterIP

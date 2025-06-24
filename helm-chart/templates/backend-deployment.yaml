@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: secure-backend
+  name: {{ .Values.appName }}-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: secure-backend
+      app: {{ .Values.appName }}-backend
   template:
     metadata:
       labels:
-        app: secure-backend
+        app: {{ .Values.appName }}-backend
     spec:
       containers:
-        - name: secure-backend
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        - name: backend
+          image: "{{ .Values.image.backend.repository }}:{{ .Values.image.backend.tag }}"
           ports:
-            - containerPort: 5000
+            - containerPort: {{ .Values.service.backendPort }}
           livenessProbe:
             httpGet:
               path: /health

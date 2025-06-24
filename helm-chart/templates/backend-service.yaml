@@ -4,9 +4,9 @@ metadata:
   name: backend-service
 spec:
   selector:
-    app: secure-backend
+    app: {{ .Values.appName }}-backend
   ports:
     - protocol: TCP
-      port: 5000
-      targetPort: 5000
+      port: {{ .Values.service.backendPort }}
+      targetPort: {{ .Values.service.backendPort }}
   type: ClusterIP

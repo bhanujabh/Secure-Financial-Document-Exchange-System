@@ -1,22 +1,26 @@
 appName: secure-finance
 
 image:
-  repository: myregistry01secure.azurecr.io/secure-backend
-  tag: v1
-
-frontend:
-  repository: myregistry01secure.azurecr.io/secure-frontend
-  tag: v1
+  backend:
+    repository: myregistry01secure.azurecr.io/secure-backend
+    tag: v1
+  frontend:
+    repository: myregistry01secure.azurecr.io/secure-frontend
+    tag: v1
 
 service:
   backendPort: 5001
   frontendPort: 80
-  type: LoadBalancer
 
 ingress:
-  host: secureapp.bhanuja.cloud
+  host: secureapp.135.235.225.3.nip.io
+  className: nginx
 
 keyvault:
   name: key-vault-01-secure
   clientId: 37669721-0f3a-4857-ab78-b04ba98adb5f
   tenantId: 29d6b2c1-5a07-49dc-ad3b-a84fe545e6d9
+
+tls:
+  email: bhanuja@example.com
+  issuerName: letsencrypt-prod
