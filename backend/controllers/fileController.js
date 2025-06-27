@@ -17,14 +17,14 @@ exports.uploadFile = async (req, res) => {
 
     uploadCounter.inc({ user: user.username });
 
+    const uuid = uuidv4();
+    const blobPath = `${user.username}/${uuid}-${file.originalname}`;
     const { encryptedBuffer, key, iv, tag } = encryptFile(file.buffer);
-
-    const blobPath = `${user.username}/${uuidv4()}-${file.originalname}`;
     await uploadFileToBlob(blobPath, encryptedBuffer, file.mimetype);
 
-    // Store encryption info in Key Vault
-    const sanitizedFilename = originalFilename.replace(/[^a-zA-Z0-9-]/g, '-'); // remove/replace invalid characters
-    const secretName = `enc-key-${username}-${uuid}-${sanitizedFilename}`;
+    const sanitizedFilename = file.originalname.replace(/[^a-zA-Z0-9-]/g, '-');
+    const secretName = `enc-key-${user.username}-${uuid}-${sanitizedFilename}`;
+
     const keyPackage = JSON.stringify({ key, iv, tag });
     await saveEncryptionKey(secretName, keyPackage);
 
