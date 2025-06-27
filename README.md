@@ -1,4 +1,4 @@
-Secure Finance Document Exchange
+**Secure Finance Document Exchange**
 
 A secure and scalable platform to exchange sensitive financial documents with Role-Based Access Control (RBAC), audit logging, metrics, and enterprise-grade Azure cloud deployment.
 
