@@ -23,7 +23,8 @@ exports.uploadFile = async (req, res) => {
     await uploadFileToBlob(blobPath, encryptedBuffer, file.mimetype);
 
     // Store encryption info in Key Vault
-    const secretName = `enc-key-${blobPath.replace(/\//g, '-')}`;
+    const sanitizedFilename = originalFilename.replace(/[^a-zA-Z0-9-]/g, '-'); // remove/replace invalid characters
+    const secretName = `enc-key-${username}-${uuid}-${sanitizedFilename}`;
     const keyPackage = JSON.stringify({ key, iv, tag });
     await saveEncryptionKey(secretName, keyPackage);
 
