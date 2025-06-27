@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-WORKDIR /app
+WORKDIR /backend
 
 COPY package*.json ./
 RUN npm install
@@ -8,4 +8,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 5001
-CMD ["node", "server.js"]
+CMD ["node", "index.js"]
+

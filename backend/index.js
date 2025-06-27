@@ -13,6 +13,10 @@ const authRoutes = require('./routes/auth');
 const fileRoutes = require('./routes/files');
 const adminRoutes = require('./routes/admin');
 
+app.get('/health', (req, res) => {
+  res.send('OK');
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/files', fileRoutes);

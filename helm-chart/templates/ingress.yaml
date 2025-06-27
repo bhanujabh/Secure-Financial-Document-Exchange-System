@@ -6,6 +6,9 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/cluster-issuer: {{ .Values.tls.issuerName }}
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   tls:

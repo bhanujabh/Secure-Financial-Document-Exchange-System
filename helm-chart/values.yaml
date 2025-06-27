@@ -3,10 +3,12 @@ appName: secure-finance
 image:
   backend:
     repository: myregistry01secure.azurecr.io/secure-backend
-    tag: v1
+    tag: v1-amd64
+    pullPolicy: Always
   frontend:
     repository: myregistry01secure.azurecr.io/secure-frontend
-    tag: v1
+    tag: v1-amd64
+    pullPolicy: Always
 
 service:
   backendPort: 5001

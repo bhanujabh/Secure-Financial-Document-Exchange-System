@@ -11,12 +11,15 @@ spec:
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "true"
-    userAssignedIdentityID: "{{ .Values.keyvault.clientId }}"
-    keyvaultName: "{{ .Values.keyvault.name }}"
-    tenantId: "{{ .Values.keyvault.tenantId }}"
+    userAssignedIdentityID: "37669721-0f3a-4857-ab78-b04ba98adb5f"
+    keyvaultName: "key-vault-01-secure"
+    tenantId: "29d6b2c1-5a07-49dc-ad3b-a84fe545e6d9"
+
     objects: |
       array:
-        - objectName: AZURE_STORAGE_CONNECTION_STRING
+        - |
+          objectName: AZURE-STORAGE-CONNECTION-STRING
           objectType: secret
-        - objectName: JWT_SECRET
+        - |
+          objectName: JWT-SECRET
           objectType: secret
