@@ -17,6 +17,13 @@ spec:
           image: "{{ .Values.image.backend.repository }}:{{ .Values.image.backend.tag }}"
           ports:
             - containerPort: {{ .Values.service.backendPort }}
+          env:
+            - name: AZURE_STORAGE_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: azure-storage-secret
+                  key: AZURE_STORAGE_CONNECTION_STRING
+
           livenessProbe:
             httpGet:
               path: /health

@@ -8,6 +8,12 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   provider: azure
+  secretObjects:
+    - secretName: azure-storage-secret
+      type: Opaque
+      data:
+        - objectName: AZURE-STORAGE-CONNECTION-STRING
+          key: AZURE_STORAGE_CONNECTION_STRING
   parameters:
     usePodIdentity: "false"
     useVMManagedIdentity: "true"
