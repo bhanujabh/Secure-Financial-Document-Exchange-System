@@ -96,4 +96,10 @@ Kubernetes `livenessProbe` and `readinessProbe` are configured on `/health` endp
 * ✅ Network Policies to isolate components
 * ✅ TLS encryption with Ingress
 
+## 📸 Screenshots
+
+### Troubleshooting
+![Troubleshooting](./images/Screenshot 2025-09-27 at 11.27.43 AM.png)
+
+
 
