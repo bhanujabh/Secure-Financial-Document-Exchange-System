@@ -101,6 +101,19 @@ Kubernetes `livenessProbe` and `readinessProbe` are configured on `/health` endp
 ### Troubleshooting
 ![Troubleshooting](./images/Screenshot%202025-09-27%20at%2011.27.43%20AM.png)
 
+### POST request for registering
+![POST request for registering](./images/screenshot-2025-09-27-11-28-00.png)
 
+### Token generation while login
+![Token generation while login](./images/screenshot-2025-09-27-11-28-07.png)
+
+### File Upload
+![File Upload](./images/screenshot-2025-09-27-11-28-17.png)
+
+### Storage account container
+![Storage account container](./images/screenshot-2025-09-27-11-28-25.png)
+
+### Azure resources utilized
+![Azure resources utilized](./images/screenshot-2025-09-27-11-28-35.png)
 
 
