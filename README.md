@@ -99,7 +99,8 @@ Kubernetes `livenessProbe` and `readinessProbe` are configured on `/health` endp
 ## 📸 Screenshots
 
 ### Troubleshooting
-![Troubleshooting](./images/Screenshot 2025-09-27 at 11.27.43 AM.png)
+![Troubleshooting](./images/Screenshot%202025-09-27%20at%2011.27.43%20AM.png)
+
 
 
 
